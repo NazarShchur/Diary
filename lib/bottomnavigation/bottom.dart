@@ -1,10 +1,8 @@
 import 'package:course/bottomnavigation/bottomitem.dart';
-import 'package:course/bottomnavigation/bottommodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-
+import 'package:course/presentation/my_flutter_app_icons.dart' as CustomIcons;
 class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,19 +20,19 @@ class Bottom extends StatelessWidget {
         children: [
           BottomItem(
             index: 0,
-            icon: FontAwesomeIcons.heartbeat
+            icon: CustomIcons.MyFlutterApp.heart
           ),
           BottomItem(
             index: 1,
-            icon: FontAwesomeIcons.clipboard,
+            icon: CustomIcons.MyFlutterApp.clipboards
           ),
           BottomItem(
             index: 2,
-            icon: Icons.change_history,
+            icon: CustomIcons.MyFlutterApp.gym,
           ),
           BottomItem(
             index: 3,
-            icon: Icons.account_circle,
+            icon: CustomIcons.MyFlutterApp.ruler,
           )
         ],
       ),
