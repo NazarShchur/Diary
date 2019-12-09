@@ -27,6 +27,7 @@ class _DiaryState extends State<Diary> {
   Widget build(BuildContext context) {
     final model = Provider.of<BottomNavigationModel>(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: tabs[model.currentIndex], bottomNavigationBar: Bottom()),
     );
