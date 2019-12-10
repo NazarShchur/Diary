@@ -4,7 +4,12 @@ class PulsePageModel extends ChangeNotifier{
   DateTime _date = DateTime.now();
   DateTime get date => _date;
   Map<DateTime, int> _pulses = new Map();
+  int currentPicker = 0;
 
+  void setCurrentPicker(int i){
+    currentPicker = i;
+    notifyListeners();
+  }
   int pulse(DateTime dateTime){
     return _pulses[dateTime];
   }
@@ -16,4 +21,6 @@ class PulsePageModel extends ChangeNotifier{
     _date = date;
     notifyListeners();
   }
+
+
 }

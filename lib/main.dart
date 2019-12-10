@@ -18,9 +18,10 @@ class Diary extends StatefulWidget {
 }
 
 class _DiaryState extends State<Diary> {
+  static final PulsePageModel model = PulsePageModel();
   List<Widget> tabs = [
     ChangeNotifierProvider<PulsePageModel>.value(
-        value: PulsePageModel(), child: PulseCalendarPage()),
+        value: model, child: PulseCalendarPage()),
     Container(),
     Container(),
     Container(),
