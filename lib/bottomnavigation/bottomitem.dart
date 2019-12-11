@@ -28,6 +28,7 @@ class BottomItem extends StatelessWidget {
           iconSize: 40,
           icon: Icon(
             icon,
+            color: model.currentIndex == index ? Colors.white : Styles.mainColor,
           ),
           onPressed: () {
             model.setCurrentIndex(index);

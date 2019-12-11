@@ -1,4 +1,4 @@
-import 'package:course/pages/pulse/pickermodel.dart';
+
 import 'package:course/pages/pulse/pulsepage.dart';
 import 'package:course/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +18,8 @@ class Diary extends StatefulWidget {
 }
 
 class _DiaryState extends State<Diary> {
-  static final PulsePageModel model = PulsePageModel();
   List<Widget> tabs = [
-    ChangeNotifierProvider<PulsePageModel>.value(
-        value: model, child: PulseCalendarPage()),
+    PulseCalendarPage(),
     Container(),
     Container(),
     Container(),
@@ -33,6 +31,7 @@ class _DiaryState extends State<Diary> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(backgroundColor: Styles.mainColor, actions:[Icon(Icons.settings)],),
           body: tabs[model.currentIndex], bottomNavigationBar: Bottom()),
     );
   }

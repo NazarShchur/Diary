@@ -1,12 +1,10 @@
-import 'package:course/dao/daydao.dart';
-import 'package:course/dao/sqllitedb.dart';
+import 'dart:async';
+import 'package:course/dao/test.dart';
 import 'package:course/entity/day.dart';
-import 'package:course/pages/pulse/pickermodel.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:provider/provider.dart';
 
 class PulseCalendarPage extends StatefulWidget {
   @override
@@ -14,42 +12,114 @@ class PulseCalendarPage extends StatefulWidget {
 }
 
 class _PulseCalendarPageState extends State<PulseCalendarPage> {
-    @override
+  DBHelper db;
+  Future<Map<DateTime, int>> futureMap;
+  DateTime currentDate;
+  int currentInt = 0;
+  Map<DateTime, int> currentMap;
+  Map<DateTime, int> map;
+  Future<Map<DateTime, int>> getMap() async{
+    List<Day> days = await db.getAllDays();
+    Map<DateTime, int> map = {};
+    days.forEach((d) => map[d.dateTime] = d.pulse);
+    return map;
+  }
+  @override
+  void initState() {
+    super.initState();
+    currentDate = DateTime.now();
+    db = DBHelper();
+    futureMap = getMap();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final model = Provider.of<PulsePageModel>(context);
-          NumberPicker picker = NumberPicker.integer(
-              initialValue: model.pulse(model.date) ?? 0,
-              minValue: 0,
-              maxValue: 200,
-              onChanged: (num) {
-                model.setPulse(model.date, num);
-              });
-          return Column(
-            children: <Widget>[
-              Center(
-                child: dp.DayPicker(
-                  datePickerStyles: dp.DatePickerRangeStyles(
-                    defaultDateTextStyle: TextStyle(color: Colors.white),
-                    currentDateStyle: TextStyle(color: Colors.white),
+    return FutureBuilder<Map<DateTime, int>>(
+        future: futureMap,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            map = map ?? {...snapshot.data};
+            currentMap = currentMap ?? {...snapshot.data};
+            NumberPicker picker = NumberPicker.integer(
+                initialValue: map[currentDate] ?? 0,
+                minValue: 0,
+                maxValue: 200,
+                onChanged: (num) {
+                  setState(() {
+                    currentInt = num;
+                    map[currentDate] = num;
+                  });
+                });
+            return Column(
+              children: <Widget>[
+                Center(
+                  child: dp.DayPicker(
+                    datePickerStyles: dp.DatePickerRangeStyles(
+                        defaultDateTextStyle: TextStyle(color: Colors.white),
+                        currentDateStyle: TextStyle(color: Colors.white),
+                        selectedSingleDateDecoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.blue)),
+                    eventDecorationBuilder: (DateTime date) =>
+                        dp.EventDecoration(
+                            boxDecoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: currentMap[date] == null
+                                    ? Colors.red
+                                    : Colors.green)),
+                    selectableDayPredicate: (DateTime date) =>
+                        !date.isAfter(DateTime.now()),
+                    selectedDate: currentDate,
+                    onChanged: (date) {
+                      setState(() {
+                        currentDate = date;
+                      });
+                      picker.animateInt(currentMap[date] ?? 0);
+                    },
+                    firstDate: DateTime(2019, 1, 1),
+                    lastDate: DateTime(2019, 12, 31),
                   ),
-                  eventDecorationBuilder: (DateTime date) => dp.EventDecoration(
-                      boxDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                          model.pulse(date) == null ? Colors.red : Colors.green)),
-                  selectableDayPredicate: (DateTime date) =>
-                  !date.isAfter(DateTime.now()),
-                  selectedDate: model.date,
-                  onChanged: (date) {
-                    model.setDate(date);
-                    picker.animateInt(model.pulse(date) ?? 0);
-                  },
-                  firstDate: DateTime(2019, 1, 1),
-                  lastDate: DateTime(2019, 12, 31),
                 ),
-              ),
-              picker,
-            ],
-          );
+                picker,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        db.save(Day(
+                            pulse: currentInt, dateTime: currentDate));
+                        currentMap[currentDate] = currentInt;
+                      },
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.green,
+                        child: Text(
+                          "ADD/EDIT",
+                        )
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        db.deleteDay(Day(
+                            pulse: map[currentDate], dateTime: currentDate));
+                        currentMap.remove(currentDate);
+                      },
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.red,
+                        child: Text(
+                          "DELETE"
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
