@@ -1,11 +1,11 @@
 
-import 'package:course/pages/pulse/pulsepage.dart';
-import 'package:course/styles/styles.dart';
+import 'package:course/appbar/MyAppBar.dart';
+import 'package:course/pages/pulse/PulsePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'bottomnavigation/bottom.dart';
-import 'bottomnavigation/bottommodel.dart';
+import 'bottomnavigation/Bottom.dart';
+import 'bottomnavigation/BottomModel.dart';
 
 void main() => runApp(ChangeNotifierProvider<BottomNavigationModel>.value(
       value: BottomNavigationModel(),
@@ -31,7 +31,7 @@ class _DiaryState extends State<Diary> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(backgroundColor: Styles.mainColor, actions:[Icon(Icons.settings)],),
+        appBar:MyAppBar(),
           body: tabs[model.currentIndex], bottomNavigationBar: Bottom()),
     );
   }

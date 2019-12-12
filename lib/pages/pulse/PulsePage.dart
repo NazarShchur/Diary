@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:course/dao/test.dart';
-import 'package:course/entity/day.dart';
+import 'package:course/dao/DAOFactory.dart';
+import 'package:course/dao/interfaces/IDayDao.dart';
+import 'package:course/entity/Day.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +13,14 @@ class PulseCalendarPage extends StatefulWidget {
 }
 
 class _PulseCalendarPageState extends State<PulseCalendarPage> {
-  DBHelper db;
+  DayDao dao = DaoFactory.getInstance().createDayDao();
   Future<Map<DateTime, int>> futureMap;
   DateTime currentDate;
   int currentInt = 0;
   Map<DateTime, int> currentMap;
   Map<DateTime, int> map;
   Future<Map<DateTime, int>> getMap() async{
-    List<Day> days = await db.getAllDays();
+    List<Day> days = await dao.getAll();
     Map<DateTime, int> map = {};
     days.forEach((d) => map[d.dateTime] = d.pulse);
     return map;
@@ -28,7 +29,6 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
   void initState() {
     super.initState();
     currentDate = DateTime.now();
-    db = DBHelper();
     futureMap = getMap();
   }
 
@@ -85,7 +85,7 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        db.save(Day(
+                        dao.save(Day(
                             pulse: currentInt, dateTime: currentDate));
                         currentMap[currentDate] = currentInt;
                       },
@@ -100,7 +100,7 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        db.deleteDay(Day(
+                        dao.delete(Day(
                             pulse: map[currentDate], dateTime: currentDate));
                         currentMap.remove(currentDate);
                       },

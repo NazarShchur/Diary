@@ -1,5 +1,5 @@
-import 'package:course/bottomnavigation/bottommodel.dart';
-import 'package:course/styles/styles.dart';
+import 'package:course/bottomnavigation/BottomModel.dart';
+import 'package:course/styles/Styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

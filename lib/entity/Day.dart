@@ -1,13 +1,13 @@
 
-import 'package:course/dao/test.dart';
+import 'package:course/dao/fields/Fields.dart';
 
 class Day{
   int pulse;
   DateTime dateTime;
   Day({this.pulse, this.dateTime});
   factory Day.fromJson(Map<String, dynamic> json) => Day(
-    pulse: json[DBHelper.PULSE],
-    dateTime: DateTime.tryParse(json[DBHelper.DATE])
+    pulse: json[Fields.PULSE],
+    dateTime: DateTime.tryParse(json[Fields.DATE])
   );
 
   String get dateString{
