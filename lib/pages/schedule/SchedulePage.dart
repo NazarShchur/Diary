@@ -3,7 +3,7 @@ import 'package:course/pages/schedule/scheduleDayPicker.dart';
 import 'package:course/pages/schedule/scheduleNotifyingTable.dart';
 import 'package:course/pages/schedule/schedulePageModel.dart';
 import 'package:course/service/scheduleParsingService.dart';
-import 'package:course/styles/textConsts.dart';
+import 'package:course/styles/consts.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -19,7 +19,8 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     final model = Provider.of<SchedulePageModel>(context);
     if (model.hasPhysLessons()) {
-      return ListView(children: <Widget>[
+      return ListView(
+          children: <Widget>[
         ScheduleDayPicker(model.physLessons),
         ScheduleNotifyingTable()
       ]);

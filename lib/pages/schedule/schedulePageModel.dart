@@ -1,12 +1,13 @@
 import 'package:course/entity/Lesson.dart';
 import 'package:course/service/scheduleParsingService.dart';
-import 'package:course/styles/textConsts.dart';
+import 'package:course/styles/consts.dart';
 import 'package:flutter/cupertino.dart';
 
 class SchedulePageModel extends ChangeNotifier{
   DateTime selected = DateTime.now();
-  Map<DateTime, bool> isDateHasPhys;
+  Map<DateTime, Lesson> physLessonsDays = {};
   List<Lesson> physLessons;
+
   void setSelected(DateTime date){
       selected = date;
       notifyListeners();
@@ -18,10 +19,13 @@ class SchedulePageModel extends ChangeNotifier{
     } catch(e){
       print(e);
     }
-    physLessons = list.where((a)=>a.lessonName.contains(TextConstants.PHYS_LESSON_NAME)).toList();
+    physLessons = list.where((a)=>a.lessonName.contains(Constants.PHYS_LESSON_NAME)).toList();
     return physLessons;
   }
   bool hasPhysLessons(){
     return physLessons != null;
+  }
+  void addPhysLessonDay(DateTime date, Lesson lesson){
+    physLessonsDays[date] = lesson;
   }
 }
