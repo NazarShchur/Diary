@@ -1,5 +1,6 @@
 import 'package:course/dao/imlementation/SQLiteDAOFactory.dart';
 import 'package:course/dao/interfaces/IDayDao.dart';
+import 'package:course/entity/Lesson.dart';
 
 abstract class DaoFactory{
   static DaoFactory _daoFactory;

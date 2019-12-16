@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:course/dao/DAOFactory.dart';
 import 'package:course/dao/interfaces/IDayDao.dart';
 import 'package:course/entity/Day.dart';
+import 'package:course/pages/pulse/PulseControllButton.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,9 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
             map = map ?? {...snapshot.data};
             currentMap = currentMap ?? {...snapshot.data};
             NumberPicker picker = NumberPicker.integer(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+              ),
                 initialValue: map[currentDate] ?? 0,
                 minValue: 0,
                 maxValue: 200,
@@ -50,9 +54,9 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
                     map[currentDate] = num;
                   });
                 });
-            return Column(
+            return ListView(
               children: <Widget>[
-                Center(
+                Container(
                   child: dp.DayPicker(
                     datePickerStyles: dp.DatePickerRangeStyles(
                         defaultDateTextStyle: TextStyle(color: Colors.white),
@@ -75,44 +79,16 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
                       });
                       picker.animateInt(currentMap[date] ?? 0);
                     },
-                    firstDate: DateTime(2019, 1, 1),
-                    lastDate: DateTime(2019, 12, 31),
+                    firstDate: DateTime(2019, 9, 1),//todo user input
+                    lastDate: DateTime(2020, 5, 31),
                   ),
                 ),
                 picker,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        dao.save(Day(
-                            pulse: currentInt, dateTime: currentDate));
-                        currentMap[currentDate] = currentInt;
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.green,
-                        child: Text(
-                          "ADD/EDIT",
-                        )
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        dao.delete(Day(
-                            pulse: map[currentDate], dateTime: currentDate));
-                        currentMap.remove(currentDate);
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.red,
-                        child: Text(
-                          "DELETE"
-                        ),
-                      ),
-                    )
+                    DayControlButton(_onTapCreate, "CREATE/UPDATE"),
+                    DayControlButton(_onTapDelete, "DELETE")
                   ],
                 )
               ],
@@ -122,4 +98,16 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
           }
         });
   }
+
+  void _onTapDelete(){
+    dao.delete(Day(
+        pulse: map[currentDate], dateTime: currentDate));
+    currentMap.remove(currentDate);
+  }
+  void _onTapCreate(){
+    dao.save(Day(
+        pulse: currentInt, dateTime: currentDate));
+    currentMap[currentDate] = currentInt;
+  }
 }
+

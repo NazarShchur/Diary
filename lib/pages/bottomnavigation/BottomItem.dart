@@ -1,8 +1,10 @@
-import 'package:course/bottomnavigation/BottomModel.dart';
+
 import 'package:course/styles/Styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'BottomModel.dart';
 
 class BottomItem extends StatelessWidget {
   final IconData icon;

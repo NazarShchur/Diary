@@ -1,8 +1,10 @@
-import 'package:course/bottomnavigation/BottomItem.dart';
+
 import 'package:course/styles/Styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:course/presentation/my_flutter_app_icons.dart' as CustomIcons;
+
+import 'BottomItem.dart';
 class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

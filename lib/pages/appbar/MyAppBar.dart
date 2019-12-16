@@ -1,7 +1,9 @@
-import 'package:course/appbar/Settings.dart';
+
 import 'package:course/styles/Styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'Settings.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override

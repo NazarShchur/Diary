@@ -13,6 +13,7 @@ class SQLiteDayDao implements DayDao{
     try {
       dbDay.delete(
           Fields.DAY_TABLE, where: "${Fields.DATE} = ?", whereArgs: [entity.dateTime.toString()]);
+      print('deleted $entity');
     }catch(e){
       print(e.toString());
     }
