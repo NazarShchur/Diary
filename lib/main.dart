@@ -5,6 +5,7 @@ import 'package:course/pages/pulse/PulsePage.dart';
 import 'package:course/pages/schedule/SchedulePage.dart';
 import 'package:course/pages/schedule/schedulePageModel.dart';
 import 'package:course/pages/settings/SettingsPage.dart';
+import 'package:course/pages/tests/TestsPage.dart';
 import 'package:course/styles/Styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class Diary extends StatefulWidget {
 class _DiaryState extends State<Diary> {
   List<Widget> tabs = [
     PulseCalendarPage(),
-    Container(),
+    TestsPage(),
     Container(),
     SchedulePage(),
     SettingsPage()

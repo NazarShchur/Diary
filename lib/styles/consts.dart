@@ -6,10 +6,19 @@ abstract class Constants{
   static const String CANCEL = "Скасувати";
   static const String GROUP_FOUND = "Група знайдена";
   static const String CAN_NOT_FIND_GROUP = "Не можу знайти групу :(";
+  static const String INPUT_GROUP_TO_USE = "Введіть групу в налаштуваннях, щоб користуватись розкладом";
+  static const String PDN = "ПДН";
+  static const String GENCHI  = "Генчі";
+  static const String MARTINE = "Мартіне";
+  static const String PULSE_BEFORE_SIT = "Пульс до присідань";
+  static const String PULSE_AFTER_SIT = "Пульс після присідань";
+  static const String CONFIRM = "Підтвердити";
+  static const String BREATHLESS_TIME = "Час затримки дихання";
+
 
   static const String SHARED_PREFS_GROUP = "group";
 
-
+  static const double TAB_BAR_HEIGHT = 88;
   static const double NO_PHYS_FONT_SIZE = 22.0;
   static const double DAY_NAME_SCHEDULE_FONT_SIZE = 20;
   static const double DATE_SCHEDULE_FONT_SIZE = 12;
@@ -24,4 +33,7 @@ abstract class Constants{
   static const double SETTINGS_ELEMENT_ICON_SIZE = 26;
   static const double SETTINGS_INPUT_GROUP_ERR_MESS_FONT_SIZE = 12;
   static const double SETTINGS_INPUT_GROUP_ERR_MESS_PADDiNG = 15;
+  static const double CONFIRM_BUTTON_FONT_SIZE = 18;
+  static const double CONFIRM_BUTTON_TOP_BOT_PADDING = 30;
+  static const double CONFIRM_BUTTON_LEFT_RIGHT_PADDING = 50;
 }

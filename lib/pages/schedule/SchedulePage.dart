@@ -45,7 +45,7 @@ class _SchedulePageState extends State<SchedulePage> { //todo save map to shared
             },
           );
         } else {
-          return Text("input group");
+          return Center(child: Text("input group"));
         }
       },
     );
