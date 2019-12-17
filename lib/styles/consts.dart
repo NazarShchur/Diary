@@ -14,7 +14,10 @@ abstract class Constants{
   static const String PULSE_AFTER_SIT = "Пульс після присідань";
   static const String CONFIRM = "Підтвердити";
   static const String BREATHLESS_TIME = "Час затримки дихання";
-
+  static const String INDEX_GENCHI_SUBMITTED = "Індекс Генчі успішно записаний для поточного місяця";
+  static const String PDN_SUBMITTED = "ПДН успішно записаний для поточного місяця";
+  static const String UNDERSTAND = "Зрозуміло";
+  static const String SOMETHING_WENT_WRONG = "Щось пішло не так, спробуйте повторити";
 
   static const String SHARED_PREFS_GROUP = "group";
 

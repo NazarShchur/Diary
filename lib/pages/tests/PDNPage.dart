@@ -7,6 +7,8 @@ import 'package:course/styles/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'TestInputedAlert.dart';
+
 class PDNPage extends StatelessWidget {
   final TextEditingController beforeController = TextEditingController();
   final TextEditingController afterController = TextEditingController();
@@ -23,15 +25,31 @@ class PDNPage extends StatelessWidget {
         TestTextForm(
             controller: afterController, header: Constants.PULSE_AFTER_SIT),
         SubmitButton(
-            onTap: () {
-              dao.save(PDN(
-                pulseBeforeSits: int.parse(beforeController.text),
-                pulseAfterSits: int.parse(afterController.text),
-                date: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-              ));
-            },
+          onTap: () {
+            onTap(context);
+          },
         )
       ],
     );
+  }
+
+  void onTap(BuildContext context) {
+    String header;
+    try {
+      dao.save(PDN(
+        pulseBeforeSits: int.parse(beforeController.text),
+        pulseAfterSits: int.parse(afterController.text),
+        date: DateTime(
+            DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      ));
+      header = Constants.PDN_SUBMITTED;
+    } catch (e) {
+      header = Constants.SOMETHING_WENT_WRONG;
+    }
+    showDialog(
+        context: context,
+        builder: (context) {
+          return TestInputAlert(header);
+        });
   }
 }
