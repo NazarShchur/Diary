@@ -3,6 +3,8 @@ import 'package:course/dao/DAOFactory.dart';
 import 'package:course/dao/interfaces/IDayDao.dart';
 import 'package:course/entity/Day.dart';
 import 'package:course/pages/pulse/PulseControllButton.dart';
+import 'package:course/styles/Styles.dart';
+import 'package:course/styles/consts.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +44,6 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
             map = map ?? {...snapshot.data};
             currentMap = currentMap ?? {...snapshot.data};
             NumberPicker picker = NumberPicker.integer(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-              ),
                 initialValue: map[currentDate] ?? 0,
                 minValue: 0,
                 maxValue: 200,
@@ -57,6 +56,11 @@ class _PulseCalendarPageState extends State<PulseCalendarPage> {
             return ListView(
               children: <Widget>[
                 Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [Styles.boxShadow]
+                  ),
+                  margin: EdgeInsets.only(top: Constants.SCHEDULE_OBJECTS_MARGIN),
                   child: dp.DayPicker(
                     datePickerStyles: dp.DatePickerRangeStyles(
                         defaultDateTextStyle: TextStyle(color: Colors.white),

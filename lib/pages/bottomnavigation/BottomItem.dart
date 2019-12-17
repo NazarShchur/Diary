@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'BottomModel.dart';
+import 'NavigationModel.dart';
 
 class BottomItem extends StatelessWidget {
   final IconData icon;
@@ -14,7 +14,7 @@ class BottomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<BottomNavigationModel>(context);
+    final model = Provider.of<NavigationModel>(context);
     return Container(
       decoration: BoxDecoration(
           color: model.currentIndex == index ? Styles.mainColor : Colors.transparent,

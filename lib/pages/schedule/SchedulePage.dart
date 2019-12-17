@@ -14,31 +14,41 @@ class SchedulePage extends StatefulWidget {
   State<StatefulWidget> createState() => _SchedulePageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _SchedulePageState extends State<SchedulePage> { //todo save map to sharedprefs
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<SchedulePageModel>(context);
-    if (model.hasPhysLessons()) {
-      return ListView(
-          children: <Widget>[
-        ScheduleDayPicker(model.physLessons),
-        ScheduleNotifyingTable()
-      ]);
-    }
-    return FutureBuilder<List<Lesson>>(
-      future: model.getPhysLessons(("ТЯ-81")),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return ListView(
-            children: <Widget>[
-              ScheduleDayPicker(snapshot.data),
-              ScheduleNotifyingTable()
-            ],
+    return FutureBuilder<String>(
+      future: ScheduleParsingService().getGroupName(),
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          if (model.hasPhysLessons()) {
+            return ListView(
+                children: <Widget>[
+                  ScheduleDayPicker(model.physLessons),
+                  ScheduleNotifyingTable()
+                ]);
+          }
+          return FutureBuilder<List<Lesson>>(
+            future: model.getPhysLessons(snapshot.data),
+            builder: (context, snapshotB) {
+              if (snapshotB.hasData) {
+                return ListView(
+                  children: <Widget>[
+                    ScheduleDayPicker(snapshotB.data),
+                    ScheduleNotifyingTable()
+                  ],
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Text("input group");
         }
       },
     );
+
   }
 }

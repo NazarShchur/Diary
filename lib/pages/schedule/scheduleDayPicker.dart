@@ -1,5 +1,7 @@
 import 'package:course/entity/Lesson.dart';
 import 'package:course/pages/schedule/schedulePageModel.dart';
+import 'package:course/styles/Styles.dart';
+import 'package:course/styles/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
@@ -12,6 +14,15 @@ class ScheduleDayPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<SchedulePageModel>(context);
     return Container(
+      margin: EdgeInsets.only(
+        top: Constants.SCHEDULE_OBJECTS_MARGIN
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          Styles.boxShadow
+        ]
+      ),
       child: dp.DayPicker(
         datePickerStyles: dp.DatePickerRangeStyles(
             selectedSingleDateDecoration:

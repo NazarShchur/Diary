@@ -11,6 +11,9 @@ class ScheduleNotifyingTable extends StatelessWidget {
     final model = Provider.of<SchedulePageModel>(context);
     if (model.physLessonsDays.keys.contains(model.selected)) {
       return Container(
+        margin: EdgeInsets.only(
+            top: Constants.SCHEDULE_OBJECTS_MARGIN
+        ),
         decoration: BoxDecoration(
           boxShadow:[
             Styles.boxShadow
@@ -55,7 +58,7 @@ class ScheduleNotifyingTable extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(Constants.SCHEDULE_NAME_DATE_PADDING),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       model.physLessonsDays[model.selected].lessonName,
@@ -77,7 +80,9 @@ class ScheduleNotifyingTable extends StatelessWidget {
         ),
       );
     } else {
-      return Center(
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: Constants.SCHEDULE_OBJECTS_MARGIN),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

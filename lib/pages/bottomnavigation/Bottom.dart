@@ -31,15 +31,15 @@ class Bottom extends StatelessWidget {
             ),
             BottomItem(
               index: 1,
-              icon: CustomIcons.MyFlutterApp.clipboards
+              icon: CustomIcons.MyFlutterApp.ruler
             ),
             BottomItem(
               index: 2,
-              icon: CustomIcons.MyFlutterApp.gym,
+              icon: CustomIcons.MyFlutterApp.clipboards,
             ),
             BottomItem(
               index: 3,
-              icon: CustomIcons.MyFlutterApp.ruler,
+              icon: CustomIcons.MyFlutterApp.gym,
             )
           ],
         ),

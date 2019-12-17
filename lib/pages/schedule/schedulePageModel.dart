@@ -4,7 +4,7 @@ import 'package:course/styles/consts.dart';
 import 'package:flutter/cupertino.dart';
 
 class SchedulePageModel extends ChangeNotifier{
-  DateTime selected = DateTime.now();
+  DateTime selected = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   Map<DateTime, Lesson> physLessonsDays = {};
   List<Lesson> physLessons;
 
@@ -15,7 +15,7 @@ class SchedulePageModel extends ChangeNotifier{
   Future<List<Lesson>> getPhysLessons(String groupName) async{
     List<Lesson> list = [];
     try{
-      list = await ScheduleParsingService().getLessonsList(groupName);
+      list = await ScheduleParsingService().getLessonsList();
     } catch(e){
       print(e);
     }
@@ -27,5 +27,9 @@ class SchedulePageModel extends ChangeNotifier{
   }
   void addPhysLessonDay(DateTime date, Lesson lesson){
     physLessonsDays[date] = lesson;
+  }
+  void resetLessons(){
+    physLessons = null;
+    physLessonsDays = {};
   }
 }
